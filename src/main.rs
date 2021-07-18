@@ -13,14 +13,14 @@ pub extern "C" fn _start() -> ! {
 
 	os::init();
 
+	#[cfg(test)]
+	test_main();
+
 	fn overflow(){
 		overflow();
 	}
 
 	overflow();
-
-	#[cfg(test)]
-	test_main();
 
 	println!("It did not crash!");
 	loop {}
