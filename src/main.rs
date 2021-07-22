@@ -5,13 +5,22 @@
 #![reexport_test_harness_main = "test_main"]
 
 use core::panic::PanicInfo;
+
+use bootloader::{BootInfo, entry_point};
+
 use os::println;
 
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
+entry_point!(kernel_main);
+
+fn kernel_main(boot_info: &'static BootInfo) -> ! {
 	println!("Hello World{}", "!");
 
 	os::init();
+
+	use x86_64::registers::control::Cr3;
+
+	let (level_4_page_table, _) = Cr3::read();
+	println!("at: {:?}", level_4_page_table.start_address());
 
 	#[cfg(test)]
 	test_main();
