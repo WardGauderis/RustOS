@@ -15,6 +15,9 @@ uart_16550 = "*"
 pic8259 = "*"
 pc-keyboard = "*"
 linked_list_allocator = "*"
+crossbeam-queue = { version = "*", default-features = false, features = ["alloc"] }
+conquer-once = { version = "*", default-features = false }
+futures-util = { version = "*", default-features = false, features = ["alloc"] }
 
 [package.metadata.bootimage]
 test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", "-serial", "stdio", "-display", "none"]
