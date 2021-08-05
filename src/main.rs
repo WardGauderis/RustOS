@@ -6,12 +6,11 @@
 
 extern crate alloc;
 
-use alloc::boxed::Box;
+
 use core::panic::PanicInfo;
 
 use bootloader::{BootInfo, entry_point};
 use x86_64::{
-	structures::paging::{Page, Translate},
 	VirtAddr,
 };
 
@@ -19,7 +18,7 @@ use os::{
 	allocator, memory,
 	memory::BootInfoFrameAllocator,
 	println,
-	task::{executor::Executor, keyboard, simple_executor::SimpleExecutor, Task},
+	task::{executor::Executor, keyboard, Task},
 };
 
 entry_point!(kernel_main);

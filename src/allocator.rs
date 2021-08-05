@@ -1,10 +1,7 @@
-use core::{
-	alloc::{GlobalAlloc, Layout},
-	ptr::null_mut,
-};
 
-use linked_list::LinkedListAllocator;
-use linked_list_allocator::LockedHeap;
+
+
+
 use x86_64::{
 	structures::paging::{
 		mapper::MapToError, FrameAllocator, Mapper, Page, PageTableFlags, Size4KiB,
@@ -12,7 +9,7 @@ use x86_64::{
 	VirtAddr,
 };
 
-use crate::allocator::bump::BumpAllocator;
+
 use crate::allocator::fixed_size_block::FixedSizeBlockAllocator;
 
 pub mod bump;

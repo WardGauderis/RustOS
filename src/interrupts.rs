@@ -1,7 +1,6 @@
 use lazy_static::lazy_static;
-use pc_keyboard::{DecodedKey, HandleControl, Keyboard, layouts, ScancodeSet1};
 use pic8259::ChainedPics;
-use spin::{self, Mutex};
+use spin::{self};
 use x86_64::{
 	instructions::port::Port,
 	structures::idt::{InterruptDescriptorTable, InterruptStackFrame, PageFaultErrorCode},
