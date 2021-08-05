@@ -1,5 +1,5 @@
 use lazy_static::lazy_static;
-use pc_keyboard::{layouts, DecodedKey, HandleControl, Keyboard, ScancodeSet1};
+use pc_keyboard::{DecodedKey, HandleControl, Keyboard, layouts, ScancodeSet1};
 use pic8259::ChainedPics;
 use spin::{self, Mutex};
 use x86_64::{

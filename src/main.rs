@@ -9,14 +9,18 @@ extern crate alloc;
 use alloc::boxed::Box;
 use core::panic::PanicInfo;
 
-use bootloader::{entry_point, BootInfo};
-use os::{allocator, memory, memory::BootInfoFrameAllocator, println};
+use bootloader::{BootInfo, entry_point};
 use x86_64::{
 	structures::paging::{Page, Translate},
 	VirtAddr,
 };
-use os::task::simple_executor::SimpleExecutor;
-use os::task::Task;
+
+use os::{
+	allocator, memory,
+	memory::BootInfoFrameAllocator,
+	println,
+	task::{executor::Executor, keyboard, simple_executor::SimpleExecutor, Task},
+};
 
 entry_point!(kernel_main);
 
@@ -30,17 +34,16 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
 	allocator::init_heap(&mut mapper, &mut frame_allocator).expect("Heap initialization failed");
 
-	async fn async_number() -> u32 {
-		42
-	}
+	async fn async_number() -> u32 { 42 }
 
 	async fn example_task() {
 		let number = async_number().await;
 		println!("async number: {}", number);
 	}
 
-	let mut executor = SimpleExecutor::new();
+	let mut executor = Executor::new();
 	executor.spawn(Task::new(example_task()));
+	executor.spawn(Task::new(keyboard::print_keypresses()));
 	executor.run();
 
 	#[cfg(test)]
